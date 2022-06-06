@@ -1,23 +1,25 @@
 const { expect } = require("chai");
 
+function ColorMap(colorCode, majorColor, minorColor) {
+  this.colorCode = colorCode;
+  this.majorColor = majorColor;
+  this.minorColor = minorColor;
+}
+
 function get_color_map() {
   const majorColors = ["White", "Red", "Black", "Yellow", "Violet"];
   const minorColors = ["Blue", "Orange", "Green", "Brown", "Slate"];
-  let colorMap = [];
+  let colorMaps = [];
   for (let i = 0; i < majorColors.length; i++) {
     for (let j = 0; j < minorColors.length; j++) {
-      colorMap.push({
-        code: i * 5 + j,
-        majorColor: majorColors[i],
-        minorColor: minorColors[j],
-      });
+      colorMaps.push(new ColorMap(i * 5 + j + 1, majorColors[i], minorColors[j]));
     }
   }
-  return colorMap;
+  return colorMaps;
 }
 
 function format_color_map(colorMap) {
-  return `${colorMap.code} | ${colorMap.majorColor} | ${colorMap.minorColor}`;
+  return `${colorMap.colorCode} | ${colorMap.majorColor} | ${colorMap.minorColor}`;
 }
 
 function print_color_map(colorMaps) {
@@ -30,7 +32,7 @@ const result = get_color_map();
 print_color_map(result);
 
 expect(result.length).equals(25, "Color map length should be 25");
-expect(result[0].code).equals(1, "Color code should start from 1");
+expect(result[0].colorCode).equals(1, "Color code should start from 1");
 expect(format_color_map(result[0])).equals(
   "1 | White | Blue",
   "First color map should be 1 | White | Blue"
