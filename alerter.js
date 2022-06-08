@@ -13,8 +13,12 @@ function networkAlertStub(celcius) {
   return 200;
 }
 
+function getCelciusFromFarenheit(farenheit){
+  return ((farenheit - 32) * 5) / 9;
+}
+
 function alertInCelcius(farenheit, networkAlert) {
-  const celcius = ((farenheit - 32) * 5) / 9;
+  const celcius = getCelciusFromFarenheit(farenheit);
   const returnCode = networkAlert(celcius);
   if (returnCode != 200) {
     // non-ok response is not an error! Issues happen in life!
